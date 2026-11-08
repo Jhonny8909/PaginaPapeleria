@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Tienda | Plantilla E-commerce</title>
+  
+  <!-- Fuentes Google: Anton (Titulares modernos e impactantes) y Space Grotesk (Texto limpio) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER PRINCIPAL
+       ============================================================ -->
+  <header class="header">
+    <div class="header-contenido">
+
+      <!-- Logo de la tienda -->
+      <a href="index.html" class="logo">
+        Mi Tienda<span>.</span>
+      </a>
+
+      <!-- Barra de búsqueda interactiva: se expande y muestra categorías al dar clic -->
+      <div class="buscador-wrapper expandible">
+        <form id="form-buscador" class="buscador-form">
+          <input 
+            type="text" 
+            id="buscador-input" 
+            class="buscador-input" 
+            placeholder="Buscar productos, marcas o categorías..." 
+            autocomplete="off"
+            aria-label="Buscar productos"
+          >
+          <button type="submit" class="buscador-btn" aria-label="Realizar búsqueda">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+            </svg>
+          </button>
+        </form>
+
+        <!-- Menú flotante de categorías que aparece al expandirse -->
+        <div class="categorias-dropdown" id="categorias-dropdown">
+          <div class="categorias-dropdown-titulo">Explorar por categoría</div>
+          <div class="categorias-lista-chips">
+            <a href="tienda.html?categoria=Ropa" class="categoria-chip">👗 Ropa</a>
+            <a href="tienda.html?categoria=Papeler%C3%ADa" class="categoria-chip">✏️ Papelería</a>
+            <a href="tienda.html?categoria=Vasos%20y%20Termos" class="categoria-chip">🥤 Vasos y Termos</a>
+            <a href="tienda.html?categoria=Bolsas%20y%20Mochilas" class="categoria-chip">🎒 Bolsas y Mochilas</a>
+            <a href="tienda.html?categoria=Trapos%20y%20Toallas" class="categoria-chip">🧼 Trapos y Toallas</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón menú móvil (hamburguesa) -->
+      <button id="btn-menu" class="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <span class="barra"></span>
+        <span class="barra"></span>
+        <span class="barra"></span>
+      </button>
+
+      <!-- Menú de enlaces principales -->
+      <nav id="menu" class="menu" aria-label="Navegación principal">
+        <a href="tienda.html" class="menu-enlace">Tienda</a>
+        <a href="#acerca" class="menu-enlace">¿Quiénes somos?</a>
+        <button class="btn-carrito-header" id="btn-abrir-carrito" aria-label="Ver carrito">
+          <span>Carrito</span>
+          <span class="badge-contador" id="contador">0</span>
+        </button>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CUERPO PRINCIPAL (MAIN)
+       ============================================================ -->
+  <main>
+    
+    <!-- 1. CARRUSEL CON PRODUCTOS MÁS VENDIDOS O SUGERIDOS -->
+    <section class="hero-carrusel-seccion">
+      <div class="carrusel-encabezado">
+        <div class="carrusel-titulos">
+          <h2>Productos Sugeridos</h2>
+          <p>Los artículos más buscados y preferidos por nuestros clientes.</p>
+        </div>
+        <div class="carrusel-controles-nav">
+          <button id="carrusel-btn-prev" class="btn-carrusel-nav" aria-label="Anterior">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button id="carrusel-btn-next" class="btn-carrusel-nav" aria-label="Siguiente">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenedor del carrusel con sus tarjetas generadas con JavaScript -->
+      <div class="carrusel-viewport">
+        <div class="carrusel-track" id="carrusel-track">
+          <!-- Tarjetas renderizadas automáticamente desde productos.js -->
+        </div>
+      </div>
+
+      <!-- Indicadores de puntos -->
+      <div class="carrusel-dots" id="carrusel-dots"></div>
+    </section>
+
+    <!-- 2. APARTADO: ¿QUIÉNES SOMOS? (ACERCA DE LA EMPRESA) -->
+    <section id="acerca" class="acerca-seccion">
+      <div class="acerca-contenido">
+        
+        <div class="acerca-texto">
+          <span class="acerca-subtitulo">Nuestra Esencia y Compromiso</span>
+          <h2>¿Quiénes somos?</h2>
+          <p>
+            Somos una marca orientada a fusionar diseño contemporáneo, calidad excepcional y una experiencia de compra directa y transparente. Esta plantilla está concebida para adaptarse de forma inmediata a cualquier tipo de negocio o catálogo comercial.
+          </p>
+          <p>
+            Creemos en el trato humano y cercano: en lugar de procesadores de pago tradicionales impersonales, facilitamos la conexión directa cliente-empresa a través de WhatsApp, entregando tickets detallados de pedido al instante.
+          </p>
+
+          <!-- Tarjetas de pilares / beneficios -->
+          <div class="acerca-grid-features">
+            <div class="feature-card">
+              <span class="feature-icono">✨</span>
+              <h4>Calidad Garantizada</h4>
+              <p>Selección cuidada de materiales duraderos y productos testeados.</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icono">💬</span>
+              <h4>Atención por WhatsApp</h4>
+              <p>Chat directo y personalizado para resolver dudas y confirmar pedidos.</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icono">⚡</span>
+              <h4>Compra Ágil</h4>
+              <p>Sin formularios engorrosos ni registros obligatorios complejos.</p>
+            </div>
+            <div class="feature-card">
+              <span class="feature-icono">📦</span>
+              <h4>Envíos Confiables</h4>
+              <p>Seguimiento continuo de tu paquete hasta la puerta de tu hogar.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acerca-imagen-box">
+          <img 
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80" 
+            alt="Nuestra tienda y equipo de trabajo"
+            loading="lazy"
+          >
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       DRAWER LATERAL DEL CARRITO
+       ============================================================ -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="carrito-drawer" id="carrito-drawer" aria-label="Carrito de compras">
+    <div class="drawer-header">
+      <h3>Tu Carrito</h3>
+      <button class="btn-cerrar-drawer" id="btn-cerrar-drawer" aria-label="Cerrar carrito">&times;</button>
+    </div>
+    
+    <div class="drawer-body" id="drawer-lista-items">
+      <!-- Los artículos agregados se renderizan aquí dinámicamente -->
+    </div>
+
+    <div class="drawer-footer">
+      <div class="drawer-total-fila">
+        <span>Total:</span>
+        <span id="drawer-total-precio">$0.00</span>
+      </div>
+      <div class="drawer-acciones">
+        <button class="btn btn-whatsapp btn-bloque" id="btn-drawer-checkout">
+          Simular Compra y Mandar Ticket
+        </button>
+        <a href="carrito.html" class="btn btn-secundario btn-bloque">
+          Ver Carrito Completo
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       POP-UP / MODAL DE SIMULACIÓN DE COMPRA CON TICKET WHATSAPP
+       ============================================================ -->
+  <div class="modal-overlay" id="ticket-modal-overlay" role="dialog" aria-modal="true">
+    <div class="ticket-card">
+      <div class="ticket-header">
+        <div class="ticket-header-icono">✓</div>
+        <h3>¡Ticket Generado con Éxito!</h3>
+        <p>Tu orden ha sido registrada para envío a WhatsApp</p>
+      </div>
+
+      <div class="ticket-cuerpo">
+        <div class="ticket-meta-info">
+          <span>Ticket: <strong class="ticket-numero" id="ticket-numero">#TK-000000</strong></span>
+          <span id="ticket-fecha">--/--/----</span>
+        </div>
+
+        <div class="ticket-divider-dentado"></div>
+
+        <div class="ticket-lista-articulos" id="ticket-articulos-lista">
+          <!-- Filas de productos del ticket -->
+        </div>
+
+        <div class="ticket-total-fila">
+          <span>Total de la Orden:</span>
+          <span id="ticket-total-valor">$0.00</span>
+        </div>
+
+        <div class="ticket-alerta-info">
+          <span>📱</span>
+          <div>
+            <strong>Simulación de Compra:</strong> En esta plantilla se crea el ticket y se simula la apertura del chat de WhatsApp con la empresa para formalizar el pedido.
+          </div>
+        </div>
+
+        <div class="ticket-acciones">
+          <button class="btn btn-primario btn-bloque" id="btn-cerrar-ticket">
+            Aceptar y Continuar
+          </button>
+          <a href="tienda.html" class="btn btn-secundario btn-bloque" onclick="cerrarTicketModal()">
+            Explorar más productos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="footer-contenido">
+      <div class="footer-col">
+        <h4 class="logo" style="color: #ffffff; font-size: 1.8rem; margin-bottom: 12px;">Mi Tienda<span>.</span></h4>
+        <p>
+          Plantilla e-commerce flexible y lista para cualquier empresa. Conexión de compras directa mediante WhatsApp.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="tienda.html">Tienda / Catálogo</a></li>
+          <li><a href="#acerca">¿Quiénes somos?</a></li>
+          <li><a href="carrito.html">Mi Carrito</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categorías</h4>
+        <ul class="footer-links">
+          <li><a href="tienda.html?categoria=Ropa">Ropa</a></li>
+          <li><a href="tienda.html?categoria=Papeler%C3%ADa">Papelería</a></li>
+          <li><a href="tienda.html?categoria=Vasos%20y%20Termos">Vasos y Termos</a></li>
+          <li><a href="tienda.html?categoria=Bolsas%20y%20Mochilas">Bolsas y Mochilas</a></li>
+          <li><a href="tienda.html?categoria=Trapos%20y%20Toallas">Trapos y Toallas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto Rápido</h4>
+        <p style="margin-bottom: 8px;">📲 WhatsApp: +52 (55) 0000-0000</p>
+        <p style="margin-bottom: 8px;">📍 Ciudad de México, México</p>
+        <p>⏰ Lunes a Sábado: 9:00 - 19:00</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Mi Tienda. Todos los derechos reservados. Plantilla creada para e-commerce ágil.
+    </div>
+  </footer>
+
+  <!-- Scripts: Datos modulares y lógica de la plantilla -->
+  <script src="productos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
