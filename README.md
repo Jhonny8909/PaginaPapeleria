@@ -13,7 +13,7 @@ Para publicar tu pÃ¡gina web en GitHub Pages de forma gratuita:
    git commit -m "Estructurar archivos para despliegue en GitHub Pages"
    git push origin main
    ```
-2. Ve a tu repositorio en GitHub: `https://github.com/hecoc713/PaginaPapeleria`.
+2. Ve a tu repositorio en GitHub: `https://github.com/Jhonny8909/PaginaPapeleria`.
 3. Haz clic en la pestaÃ±a **Settings** (ConfiguraciÃ³n) arriba a la derecha.
 4. En el menÃº lateral izquierdo, haz clic en **Pages** (en la secciÃ³n *Code and automation*).
 5. En **Build and deployment**:
@@ -21,7 +21,7 @@ Para publicar tu pÃ¡gina web en GitHub Pages de forma gratuita:
    - **Branch**: Selecciona `main` y en la carpeta elige `/ (root)`.
    - Haz clic en **Save** (Guardar).
 6. En un par de minutos, tu sitio web estarÃ¡ activo en:
-   ðŸ‘‰ **`https://hecoc713.github.io/PaginaPapeleria/`**
+   ðŸ‘‰ **`https://Jhonny8909.github.io/PaginaPapeleria/`**
 
 ### OpciÃ³n B: Mediante GitHub Actions
 El repositorio ya incluye el flujo automatizado en `.github/workflows/deploy.yml`. Solo debes ir a **Settings** -> **Pages** -> en **Source** elegir **GitHub Actions**.
@@ -67,4 +67,5 @@ El repositorio ya incluye el flujo automatizado en `.github/workflows/deploy.yml
      const mensaje = encodeURIComponent(`Hola, quiero confirmar mi pedido ${ticketId}:\n${resumen}\nTotal: $${total}`);
      window.open(`https://wa.me/TUNUMERODETELEFONO?text=${mensaje}`, '_blank');
      ```
+
 
