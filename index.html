@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Tienda | Plantilla E-commerce</title>
+  <title>CONSORCIO MONZAPRIME</title>
   
   <!-- Fuentes Google: Anton (Titulares modernos e impactantes) y Space Grotesk (Texto limpio) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
 
       <!-- Logo de la tienda -->
       <a href="index.html" class="logo">
-        Mi Tienda<span>.</span>
+        CONSORCIO MONZAPRIME<span>.</span>
       </a>
 
       <!-- Barra de búsqueda interactiva: se expande y muestra categorías al dar clic -->
@@ -66,7 +66,6 @@
       <!-- Menú de enlaces principales -->
       <nav id="menu" class="menu" aria-label="Navegación principal">
         <a href="tienda.html" class="menu-enlace">Tienda</a>
-        <a href="#acerca" class="menu-enlace">¿Quiénes somos?</a>
         <button class="btn-carrito-header" id="btn-abrir-carrito" aria-label="Ver carrito">
           <span>Carrito</span>
           <span class="badge-contador" id="contador">0</span>
@@ -81,7 +80,7 @@
        ============================================================ -->
   <main>
     
-    <!-- 1. CARRUSEL CON PRODUCTOS MÁS VENDIDOS O SUGERIDOS -->
+    <!-- 1. CARRUSEL CON PRODUCTOS MaS VENDIDOS O SUGERIDOS -->
     <section class="hero-carrusel-seccion">
       <div class="carrusel-encabezado">
         <div class="carrusel-titulos">
@@ -113,54 +112,30 @@
       <div class="carrusel-dots" id="carrusel-dots"></div>
     </section>
 
-    <!-- 2. APARTADO: ¿QUIÉNES SOMOS? (ACERCA DE LA EMPRESA) -->
-    <section id="acerca" class="acerca-seccion">
-      <div class="acerca-contenido">
-        
-        <div class="acerca-texto">
-          <span class="acerca-subtitulo">Nuestra Esencia y Compromiso</span>
-          <h2>¿Quiénes somos?</h2>
-          <p>
-            Somos una marca orientada a fusionar diseño contemporáneo, calidad excepcional y una experiencia de compra directa y transparente. Esta plantilla está concebida para adaptarse de forma inmediata a cualquier tipo de negocio o catálogo comercial.
-          </p>
-          <p>
-            Creemos en el trato humano y cercano: en lugar de procesadores de pago tradicionales impersonales, facilitamos la conexión directa cliente-empresa a través de WhatsApp, entregando tickets detallados de pedido al instante.
-          </p>
-
-          <!-- Tarjetas de pilares / beneficios -->
-          <div class="acerca-grid-features">
-            <div class="feature-card">
-              <span class="feature-icono">✨</span>
-              <h4>Calidad Garantizada</h4>
-              <p>Selección cuidada de materiales duraderos y productos testeados.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icono">💬</span>
-              <h4>Atención por WhatsApp</h4>
-              <p>Chat directo y personalizado para resolver dudas y confirmar pedidos.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icono">⚡</span>
-              <h4>Compra Ágil</h4>
-              <p>Sin formularios engorrosos ni registros obligatorios complejos.</p>
-            </div>
-            <div class="feature-card">
-              <span class="feature-icono">📦</span>
-              <h4>Envíos Confiables</h4>
-              <p>Seguimiento continuo de tu paquete hasta la puerta de tu hogar.</p>
-            </div>
-          </div>
+    <!-- 2. CARRUSEL DE OTROS PRODUCTOS -->
+    <section class="hero-carrusel-seccion">
+      <div class="carrusel-encabezado">
+        <div class="carrusel-titulos">
+          <h2>Otros productos</h2>
+          <p>Descubre más artículos seleccionados para ti.</p>
         </div>
-
-        <div class="acerca-imagen-box">
-          <img 
-            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80" 
-            alt="Nuestra tienda y equipo de trabajo"
-            loading="lazy"
-          >
+        <div class="carrusel-controles-nav">
+          <button id="otros-productos-btn-prev" class="btn-carrusel-nav" aria-label="Productos anteriores">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button id="otros-productos-btn-next" class="btn-carrusel-nav" aria-label="Productos siguientes">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
         </div>
-
       </div>
+      <div class="carrusel-viewport">
+        <div class="carrusel-track" id="otros-productos-track"></div>
+      </div>
+      <div class="carrusel-dots" id="otros-productos-dots"></div>
     </section>
 
   </main>
@@ -234,7 +209,7 @@
           <button class="btn btn-primario btn-bloque" id="btn-cerrar-ticket">
             Aceptar y Continuar
           </button>
-          <a href="tienda.html" class="btn btn-secundario btn-bloque" onclick="cerrarTicketModal()">
+          <a href="tienda.html" class="btn btn-secundario btn-bloque" onclick="cerrarTicketModal(true)">
             Explorar más productos
           </a>
         </div>
@@ -248,9 +223,8 @@
   <footer class="footer">
     <div class="footer-contenido">
       <div class="footer-col">
-        <h4 class="logo" style="color: #ffffff; font-size: 1.8rem; margin-bottom: 12px;">Mi Tienda<span>.</span></h4>
+        <h4 class="logo" style="color: #ffffff; font-size: 1.8rem; margin-bottom: 12px;">CONSORCIO MONZAPRIME<span>.</span></h4>
         <p>
-          Plantilla e-commerce flexible y lista para cualquier empresa. Conexión de compras directa mediante WhatsApp.
         </p>
       </div>
       <div class="footer-col">
@@ -258,7 +232,6 @@
         <ul class="footer-links">
           <li><a href="index.html">Inicio</a></li>
           <li><a href="tienda.html">Tienda / Catálogo</a></li>
-          <li><a href="#acerca">¿Quiénes somos?</a></li>
           <li><a href="carrito.html">Mi Carrito</a></li>
         </ul>
       </div>
@@ -274,13 +247,11 @@
       </div>
       <div class="footer-col">
         <h4>Contacto Rápido</h4>
-        <p style="margin-bottom: 8px;">📲 WhatsApp: +52 (55) 0000-0000</p>
-        <p style="margin-bottom: 8px;">📍 Ciudad de México, México</p>
-        <p>⏰ Lunes a Sábado: 9:00 - 19:00</p>
+        <p style="margin-bottom: 8px;">WhatsApp: 5550698604</p>
+        <p style="margin-bottom: 8px;">Correo: consorciomonzaprime@infinitummail.com</p>
       </div>
     </div>
     <div class="footer-bottom">
-      &copy; 2026 Mi Tienda. Todos los derechos reservados. Plantilla creada para e-commerce ágil.
     </div>
   </footer>
 

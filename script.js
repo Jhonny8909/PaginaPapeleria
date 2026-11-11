@@ -26,7 +26,7 @@ function guardarCarrito(carrito) {
   }
 }
 
-function agregarAlCarrito(productoId, cantidad = 1) {
+function agregarAlCarrito(productoId, cantidad = 1, abrirDrawer = true) {
   const producto = obtenerProductoPorId(productoId);
   if (!producto) return;
 
@@ -47,7 +47,7 @@ function agregarAlCarrito(productoId, cantidad = 1) {
   }
 
   guardarCarrito(carrito);
-  abrirCarritoDrawer();
+  if (abrirDrawer) abrirCarritoDrawer();
 }
 
 function actualizarCantidadItem(productoId, delta) {
@@ -271,6 +271,92 @@ function inicializarHeader() {
 // ------------------------------------------------------------
 // 5. CARRUSEL INTERACTIVO (index.html)
 // ------------------------------------------------------------
+function generarControlesImagenesProducto(producto) {
+  if (producto.imagenes.length <= 1) return "";
+
+  return `
+    <div class="producto-imagen-controles" aria-label="Imágenes de ${producto.nombre}">
+      <button type="button" class="producto-imagen-flecha" data-product-image-control data-product-id="${producto.id}" data-direction="-1" aria-label="Imagen anterior de ${producto.nombre}">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button type="button" class="producto-imagen-flecha" data-product-image-control data-product-id="${producto.id}" data-direction="1" aria-label="Imagen siguiente de ${producto.nombre}">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="producto-imagen-indicadores" aria-label="Seleccionar imagen">
+      ${producto.imagenes.map((_, index) => `
+        <button type="button" class="producto-imagen-indicador ${index === 0 ? "activo" : ""}" data-product-image-control data-product-id="${producto.id}" data-image-index="${index}" aria-label="Ver imagen ${index + 1} de ${producto.nombre}" aria-pressed="${index === 0}"></button>
+      `).join("")}
+    </div>
+  `;
+}
+
+function inicializarCarruselesImagenes(contenedor, productos) {
+  if (!contenedor) return;
+
+  const productosPorId = new Map(productos.map(producto => [String(producto.id), producto]));
+
+  function mostrarImagen(tarjeta, producto, indice) {
+    const imagen = tarjeta.querySelector(".producto-card-img");
+    if (!imagen) return;
+
+    imagen.src = producto.imagenes[indice];
+    imagen.alt = `${producto.nombre} - imagen ${indice + 1} de ${producto.imagenes.length}`;
+    imagen.dataset.imageIndex = String(indice);
+
+    tarjeta.querySelectorAll(".producto-imagen-indicador").forEach((indicador, index) => {
+      const activo = index === indice;
+      indicador.classList.toggle("activo", activo);
+      indicador.setAttribute("aria-pressed", String(activo));
+    });
+  }
+
+  if (contenedor.dataset.imageCarouselInitialized !== "true") {
+    contenedor.addEventListener("click", (event) => {
+      const control = event.target.closest("[data-product-image-control]");
+      if (!control) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const producto = productosPorId.get(control.dataset.productId);
+      const tarjeta = control.closest(".producto-card");
+      const imagen = tarjeta && tarjeta.querySelector(".producto-card-img");
+      if (!producto || !imagen) return;
+
+      const indiceActual = Number(imagen.dataset.imageIndex);
+      const indiceSiguiente = control.dataset.direction
+        ? (indiceActual + Number(control.dataset.direction) + producto.imagenes.length) % producto.imagenes.length
+        : Number(control.dataset.imageIndex);
+      if (!Number.isInteger(indiceSiguiente) || indiceSiguiente < 0 || indiceSiguiente >= producto.imagenes.length) return;
+
+      mostrarImagen(tarjeta, producto, indiceSiguiente);
+    });
+
+    contenedor.dataset.imageCarouselInitialized = "true";
+  }
+
+  if (contenedor.dataset.imageCarouselAutoplay === "true") return;
+
+  window.setInterval(() => {
+    contenedor.querySelectorAll(".producto-card").forEach(tarjeta => {
+      if (tarjeta.matches(":hover") || tarjeta.contains(document.activeElement)) return;
+
+      const producto = productosPorId.get(tarjeta.dataset.productId);
+      const imagen = tarjeta.querySelector(".producto-card-img");
+      if (!producto || producto.imagenes.length <= 1 || !imagen) return;
+
+      const indiceActual = Number(imagen.dataset.imageIndex) || 0;
+      mostrarImagen(tarjeta, producto, (indiceActual + 1) % producto.imagenes.length);
+    });
+  }, 4000);
+  contenedor.dataset.imageCarouselAutoplay = "true";
+}
+
 function inicializarCarrusel() {
   const track = document.getElementById("carrusel-track");
   const btnPrev = document.getElementById("carrusel-btn-prev");
@@ -284,10 +370,31 @@ function inicializarCarrusel() {
 
   // Renderizar tarjetas en el track
   track.innerHTML = productosCarrusel.map(p => `
-    <article class="producto-card">
+    <article class="producto-card" data-product-id="${p.id}">
       <div class="producto-card-img-wrapper">
         <span class="badge-tag">Sugerido</span>
-        <img src="${p.imagenes[0]}" alt="${p.nombre}" class="producto-card-img" loading="lazy">
+        <a href="producto.html?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
+          <img src="${p.imagenes[0]}" alt="${p.nombre} - imagen 1 de ${p.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
+        </a>
+        ${p.imagenes.length > 1 ? `
+          <div class="producto-imagen-controles" aria-label="Imágenes de ${p.nombre}">
+            <button type="button" class="producto-imagen-flecha" data-product-image-control data-product-id="${p.id}" data-direction="-1" aria-label="Imagen anterior de ${p.nombre}">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button type="button" class="producto-imagen-flecha" data-product-image-control data-product-id="${p.id}" data-direction="1" aria-label="Imagen siguiente de ${p.nombre}">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+          <div class="producto-imagen-indicadores" aria-label="Seleccionar imagen">
+            ${p.imagenes.map((_, index) => `
+              <button type="button" class="producto-imagen-indicador ${index === 0 ? "activo" : ""}" data-product-image-control data-product-id="${p.id}" data-image-index="${index}" aria-label="Ver imagen ${index + 1} de ${p.nombre}" aria-pressed="${index === 0}"></button>
+            `).join("")}
+          </div>
+        ` : ""}
       </div>
       <div class="producto-card-cuerpo">
         <span class="producto-card-categoria">${p.categoria}</span>
@@ -305,6 +412,8 @@ function inicializarCarrusel() {
       </div>
     </article>
   `).join("");
+
+  inicializarCarruselesImagenes(track, productosCarrusel);
 
   let currentIndex = 0;
   let cardsVisibles = calcularCardsVisibles();
@@ -392,6 +501,122 @@ function inicializarCarrusel() {
   actualizarPosicion();
 }
 
+function inicializarCarruselOtrosProductos() {
+  const productos = PRODUCTOS.filter(producto => producto.destacado !== true);
+  for (let index = productos.length - 1; index > 0; index--) {
+    const aleatorio = Math.floor(Math.random() * (index + 1));
+    [productos[index], productos[aleatorio]] = [productos[aleatorio], productos[index]];
+  }
+  const seleccionados = productos.slice(0, 12);
+  const track = document.getElementById("otros-productos-track");
+  const btnPrev = document.getElementById("otros-productos-btn-prev");
+  const btnNext = document.getElementById("otros-productos-btn-next");
+  const dotsContainer = document.getElementById("otros-productos-dots");
+  if (!track) return;
+
+  track.innerHTML = seleccionados.map(producto => `
+    <article class="producto-card" data-product-id="${producto.id}">
+      <div class="producto-card-img-wrapper">
+        <a href="producto.html?id=${producto.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${producto.nombre}">
+          <img src="${producto.imagenes[0]}" alt="${producto.nombre} - imagen 1 de ${producto.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
+        </a>
+        ${generarControlesImagenesProducto(producto)}
+      </div>
+      <div class="producto-card-cuerpo">
+        <span class="producto-card-categoria">${producto.categoria}</span>
+        <h3 class="producto-card-titulo">${producto.nombre}</h3>
+        <div class="producto-card-precios">
+          <span class="precio-actual">${formatearMoneda(producto.precio)}</span>
+          ${producto.precioAnterior ? `<span class="precio-anterior">${formatearMoneda(producto.precioAnterior)}</span>` : ""}
+        </div>
+        <div class="producto-card-acciones">
+          <a href="producto.html?id=${producto.id}" class="btn btn-primario btn-sm btn-bloque">Ver Producto</a>
+          <button class="btn btn-secundario btn-sm" onclick="agregarAlCarrito(${producto.id})" title="Añadir al carrito">
+            🛒
+          </button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+  inicializarCarruselesImagenes(track, seleccionados);
+
+  let currentIndex = 0;
+  function obtenerMaxIndex() {
+    const visibles = window.innerWidth <= 768 ? 1 : window.innerWidth <= 1024 ? 2 : 3;
+    return Math.max(0, seleccionados.length - visibles);
+  }
+  function actualizarPosicion() {
+    const card = track.querySelector(".producto-card");
+    if (!card) return;
+
+    const maxIndex = obtenerMaxIndex();
+    currentIndex = Math.min(currentIndex, maxIndex);
+    track.style.transform = `translateX(-${currentIndex * (card.getBoundingClientRect().width + 24)}px)`;
+    if (dotsContainer) {
+      dotsContainer.querySelectorAll(".carrusel-dot").forEach((dot, index) => {
+        dot.classList.toggle("activo", index === currentIndex);
+      });
+    }
+    if (btnPrev) btnPrev.disabled = maxIndex === 0;
+    if (btnNext) btnNext.disabled = maxIndex === 0;
+  }
+  function renderDots() {
+    if (!dotsContainer) return;
+    dotsContainer.innerHTML = "";
+    for (let index = 0; index <= obtenerMaxIndex(); index++) {
+      const dot = document.createElement("button");
+      dot.className = `carrusel-dot ${index === currentIndex ? "activo" : ""}`;
+      dot.setAttribute("aria-label", `Ir a elemento ${index + 1}`);
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        actualizarPosicion();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+  if (btnNext) {
+    btnNext.addEventListener("click", () => {
+      const maxIndex = obtenerMaxIndex();
+      currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+      actualizarPosicion();
+    });
+  }
+  if (btnPrev) {
+    btnPrev.addEventListener("click", () => {
+      const maxIndex = obtenerMaxIndex();
+      currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+      actualizarPosicion();
+    });
+  }
+
+  const viewport = track.parentElement;
+  let autoplayInterval = null;
+  function iniciarAutoplay() {
+    if (autoplayInterval || obtenerMaxIndex() === 0) return;
+    autoplayInterval = window.setInterval(() => {
+      const maxIndex = obtenerMaxIndex();
+      currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+      actualizarPosicion();
+    }, 4500);
+  }
+  function detenerAutoplay() {
+    window.clearInterval(autoplayInterval);
+    autoplayInterval = null;
+  }
+  if (viewport) {
+    viewport.addEventListener("mouseenter", detenerAutoplay);
+    viewport.addEventListener("mouseleave", iniciarAutoplay);
+  }
+  window.addEventListener("resize", () => {
+    renderDots();
+    actualizarPosicion();
+    iniciarAutoplay();
+  });
+  renderDots();
+  actualizarPosicion();
+  iniciarAutoplay();
+}
+
 // ------------------------------------------------------------
 // 6. CATÁLOGO Y BÚSQUEDA (tienda.html)
 // ------------------------------------------------------------
@@ -476,9 +701,12 @@ function filtrarYMostrarCatalogo(termino, categoria) {
     `;
   } else {
     contenedor.innerHTML = resultados.map(p => `
-      <article class="producto-card">
+      <article class="producto-card" data-product-id="${p.id}">
         <div class="producto-card-img-wrapper">
-          <img src="${p.imagenes[0]}" alt="${p.nombre}" class="producto-card-img" loading="lazy">
+          <a href="producto.html?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
+            <img src="${p.imagenes[0]}" alt="${p.nombre} - imagen 1 de ${p.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
+          </a>
+          ${generarControlesImagenesProducto(p)}
         </div>
         <div class="producto-card-cuerpo">
           <span class="producto-card-categoria">${p.categoria}</span>
@@ -499,6 +727,7 @@ function filtrarYMostrarCatalogo(termino, categoria) {
         </div>
       </article>
     `).join("");
+    inicializarCarruselesImagenes(contenedor, PRODUCTOS);
   }
 }
 
@@ -607,6 +836,7 @@ function inicializarDetalleProducto() {
   const btnComprarAhora = document.getElementById("btn-detalle-comprar");
   if (btnComprarAhora) {
     btnComprarAhora.addEventListener("click", () => {
+      agregarAlCarrito(producto.id, cantidadSeleccionada, false);
       const itemCompra = [{
         id: producto.id,
         nombre: producto.nombre,
@@ -748,13 +978,13 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
   document.body.style.overflow = "hidden";
 }
 
-function cerrarTicketModal() {
+function cerrarTicketModal(conservarCarrito = false) {
   const modal = document.getElementById("ticket-modal-overlay");
   if (modal && modal.classList.contains("activo")) {
     modal.classList.remove("activo");
     document.body.style.overflow = "";
 
-    if (modal.getAttribute("data-vaciar-al-cerrar") === "true") {
+    if (!conservarCarrito && modal.getAttribute("data-vaciar-al-cerrar") === "true") {
       vaciarCarrito();
     }
   }
@@ -769,6 +999,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Inicializar componentes específicos según la página actual
   inicializarCarrusel();
+  inicializarCarruselOtrosProductos();
   inicializarTienda();
   inicializarDetalleProducto();
 

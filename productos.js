@@ -27,11 +27,14 @@ const PRODUCTOS = [
     nombre: "Pantalón Pijama",
     categoria: "Ropa",
     precio: 299.00,
-    precioAnterior: 349.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+      "media/image1.png",
+      "media/image2.png",
+      "media/image3.png",
+      "media/image4.png",
+      "media/image5.png",
+      "media/image6.png"
     ],
     descripcionCorta: "Pantalón de pijama suave, cómodo y térmico para descanso diario.",
     descripcionLarga: "Confeccionado en tela ultra suave con cintura elástica ajustable. Ideal para descansar en casa con máxima comodidad y ligereza."
@@ -41,11 +44,9 @@ const PRODUCTOS = [
     nombre: "Conjunto Brooklyn",
     categoria: "Ropa",
     precio: 189.00,
-    precioAnterior: 229.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80"
+      "media/image7.png"
     ],
     descripcionCorta: "Conjunto urbano estilo Brooklyn de dos piezas.",
     descripcionLarga: "Diseño moderno y relajado de estilo urbano. Incluye sudadera/playera y pantalón a juego con excelente corte y acabado."
@@ -55,10 +56,9 @@ const PRODUCTOS = [
     nombre: "Malla Negra",
     categoria: "Ropa",
     precio: 79.00,
-    precioAnterior: 99.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?auto=format&fit=crop&w=800&q=80"
+      "media/image8.png"
     ],
     descripcionCorta: "Malla negra ajustada con elástico de alta resistencia.",
     descripcionLarga: "Leggings versátiles de tono negro intenso, ideales para ejercicio o combinación casual. No se trasluce y ofrece ajuste ergonómico."
@@ -68,10 +68,9 @@ const PRODUCTOS = [
     nombre: "Blusa Azul",
     categoria: "Ropa",
     precio: 150.00,
-    precioAnterior: 180.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=800&q=80"
+      "media/image9.png"
     ],
     descripcionCorta: "Blusa casual tono azul cielo de tacto ligero y fresco.",
     descripcionLarga: "Prenda ligera con caída suave, cuello cómodo y mangas con acabado estilizado. Perfecta para el día a día."
@@ -81,11 +80,10 @@ const PRODUCTOS = [
     nombre: "Abrigo",
     categoria: "Ropa",
     precio: 319.00,
-    precioAnterior: 389.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=800&q=80"
-    ],
+        "media/image10.png"
+      ],
     descripcionCorta: "Abrigo térmico de temporada con cierre y forro confortable.",
     descripcionLarga: "Protección ideal contra climas fríos. Material resistente al viento con bolsillos funcionales y forro interno cálido."
   },
@@ -94,10 +92,9 @@ const PRODUCTOS = [
     nombre: "Blusa Azul Marino",
     categoria: "Ropa",
     precio: 119.00,
-    precioAnterior: 145.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1551803091-e20673f15770?auto=format&fit=crop&w=800&q=80"
+      "media/image11.png"
     ],
     descripcionCorta: "Blusa elegante en azul marino de corte regular.",
     descripcionLarga: "Color sobrio y combinable, confeccionada en tejido suave con costuras reforzadas para uso prolongado."
@@ -107,13 +104,12 @@ const PRODUCTOS = [
     nombre: "Blusas Térmicas Colores",
     categoria: "Ropa",
     precio: 139.00,
-    precioAnterior: 169.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80"
+      "media/image12.png"
     ],
-    descripcionCorta: "Blusas térmicas de manga larga en variedad de colores.",
-    descripcionLarga: "Interior afelpado ultra suave que conserva el calor corporal sin perder flexibilidad. Disponibles en amplia gama de tonalidades."
+    descripcionCorta: "Blusas térmicas de manga larga en colores olivo, índigo, rubí, cocoa y negro.",
+    descripcionLarga: "Interior afelpado ultra suave que conserva el calor corporal sin perder flexibilidad. Disponibles en colores olivo, índigo, rubí, cocoa y negro."
   },
 
   // ==================== 2. PAPELERÍA ====================
@@ -122,10 +118,9 @@ const PRODUCTOS = [
     nombre: "Agenda",
     categoria: "Papelería",
     precio: 115.00,
-    precioAnterior: 140.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=800&q=80"
+      "media/image14.png"
     ],
     descripcionCorta: "Agenda planificadora con pasta dura y hojas fechadas.",
     descripcionLarga: "Organizador personal ideal para notas, citas y proyectos. Incluye separador de listón, calendario anual y secciones de notas."
@@ -135,10 +130,9 @@ const PRODUCTOS = [
     nombre: "Colores 36 Lápices",
     categoria: "Papelería",
     precio: 139.00,
-    precioAnterior: 165.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=800&q=80"
+      "media/image15.png"
     ],
     descripcionCorta: "Caja con 36 lápices de colores de punta resistente y suave trazo.",
     descripcionLarga: "Colores vivos y gran poder cubriente. Minas gruesas de 3.3mm resistentes a caídas, ideales para dibujo artístico y escolar."
@@ -148,10 +142,9 @@ const PRODUCTOS = [
     nombre: "Sacapuntas 100 Pzas",
     categoria: "Papelería",
     precio: 199.00,
-    precioAnterior: 239.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1585336261026-614c81061f5f?auto=format&fit=crop&w=800&q=80"
+      "media/image16.png"
     ],
     descripcionCorta: "Paquete mayoreo con 100 sacapuntas metálicos/plásticos surtidos.",
     descripcionLarga: "Cuchillas de acero afiladas de larga duración para punta uniforme. Excelente para surtir negocios, escuelas y talleres."
@@ -161,10 +154,9 @@ const PRODUCTOS = [
     nombre: "Marca Texto 4 Pzas",
     categoria: "Papelería",
     precio: 49.50,
-    precioAnterior: 65.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1580569214296-5cf2ebe6698e?auto=format&fit=crop&w=800&q=80"
+      "media/image17.png"
     ],
     descripcionCorta: "Blíster con 4 resaltadores fluorescentes en tonos variados.",
     descripcionLarga: "Tinta de secado rápido que no mancha ni traspasa el papel. Punta biselada para trazos delgados y gruesos."
@@ -174,10 +166,9 @@ const PRODUCTOS = [
     nombre: "Cinta Adhesiva 36 Pzas",
     categoria: "Papelería",
     precio: 819.00,
-    precioAnterior: 950.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80"
+      "media/image18.png"
     ],
     descripcionCorta: "Paquete con 36 rollos de cinta adhesiva transparente de alto agarre.",
     descripcionLarga: "Cinta canela o transparente multiusos con adhesivo acrílico extra fuerte, ideal para embalaje, oficinas y envíos."
@@ -187,12 +178,11 @@ const PRODUCTOS = [
     nombre: "Pizarrón 25x35 (72 Pzas)",
     categoria: "Papelería",
     precio: 4680.00,
-    precioAnterior: 5200.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=800&q=80"
+      "media/image19.png"
     ],
-    descripcionCorta: "Caja con 72 pizarrones individuales de 25x35 cm para plumón borrable.",
+    descripcionCorta: "72 pizarrones individuales de 25x35 cm para plumón borrable.",
     descripcionLarga: "Pizarrones portátiles ideales para educación preescolar, primaria y dinámicas interactivas. Marco plástico resistente."
   },
   {
@@ -200,10 +190,9 @@ const PRODUCTOS = [
     nombre: "Juego de Geometría (80 Pzas)",
     categoria: "Papelería",
     precio: 4800.00,
-    precioAnterior: 5400.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80"
+      "media/image20.png"
     ],
     descripcionCorta: "Caja mayoreo con 80 juegos de geometría completos.",
     descripcionLarga: "Cada juego incluye regla de 30cm, escuadra de 45°, escuadra de 60°, transportador y compás en estuche individual."
@@ -213,10 +202,9 @@ const PRODUCTOS = [
     nombre: "Regla Caja 1200 Pzas",
     categoria: "Papelería",
     precio: 14400.00,
-    precioAnterior: 16000.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80"
+      "media/image21.png"
     ],
     descripcionCorta: "Caja máster con 1200 reglas escolares graduadas de 30 cm.",
     descripcionLarga: "Presentación por mayoreo para distribuidoras y papelerías. Material plástico flexible y números de alta visibilidad."
@@ -226,10 +214,9 @@ const PRODUCTOS = [
     nombre: "Plumón Acrílico 48 Pzas",
     categoria: "Papelería",
     precio: 180.00,
-    precioAnterior: 220.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80"
+      "media/image22.png"
     ],
     descripcionCorta: "Paquete con 48 marcadores de tinta acrílica para múltiples superficies.",
     descripcionLarga: "Pintura al agua de alto cubrimiento sobre papel, vidrio, plástico, tela y cerámica. Trazos intensos y duraderos."
@@ -239,10 +226,9 @@ const PRODUCTOS = [
     nombre: "Corrector Líquido 48 Pzas",
     categoria: "Papelería",
     precio: 189.00,
-    precioAnterior: 230.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+      "media/image23.png"
     ],
     descripcionCorta: "Caja expositora con 48 piezas de corrector líquido de secado rápido.",
     descripcionLarga: "Fórmula de secado instantáneo con aplicador de punta metálica de precisión. Cobertura uniforme en una sola pasada."
@@ -252,10 +238,9 @@ const PRODUCTOS = [
     nombre: "Colores 12 Lápices",
     categoria: "Papelería",
     precio: 40.00,
-    precioAnterior: 50.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=800&q=80"
+      "media/image24.png"
     ],
     descripcionCorta: "Caja de 12 lápices de colores básicos para uso escolar.",
     descripcionLarga: "Madera suave fácil de tajar con minas pigmentadas. Esencial para la lista escolar diaria."
@@ -265,10 +250,9 @@ const PRODUCTOS = [
     nombre: "Colores 12 Lápices 4.0",
     categoria: "Papelería",
     precio: 49.00,
-    precioAnterior: 60.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1585776245991-cf89dd7fc73a?auto=format&fit=crop&w=800&q=80"
+      "media/image25.png"
     ],
     descripcionCorta: "Caja con 12 lápices de colores con mina jumbo gruesa de 4.0 mm.",
     descripcionLarga: "Mina ultra resistente a la presión infantil. Cobertura rápida y colores intensos para primeros trazos."
@@ -278,10 +262,9 @@ const PRODUCTOS = [
     nombre: "Colores 24 Lápices",
     categoria: "Papelería",
     precio: 99.00,
-    precioAnterior: 120.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=800&q=80"
+      "media/image26.png"
     ],
     descripcionCorta: "Caja con 24 lápices de colores con tonos extendidos y metálicos.",
     descripcionLarga: "Gama completa de matices para sombreados y degradados artísticos. Suaves al contacto y resistentes al desprendimiento."
@@ -291,10 +274,9 @@ const PRODUCTOS = [
     nombre: "Llavero Sílabas",
     categoria: "Papelería",
     precio: 39.00,
-    precioAnterior: 49.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1569683795645-b62e50fbf103?auto=format&fit=crop&w=800&q=80"
+      "media/image27.png"
     ],
     descripcionCorta: "Llavero interactivo con tarjetas de sílabas para aprendizaje didáctico.",
     descripcionLarga: "Herramienta educativa compacta para facilitar la lectoescritura en niños. Tarjetas plastificadas de alta resistencia con anilla metálica."
@@ -306,10 +288,9 @@ const PRODUCTOS = [
     nombre: "Termo Digital",
     categoria: "Vasos y Termos",
     precio: 319.00,
-    precioAnterior: 379.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80"
+      "media/image28.png"
     ],
     descripcionCorta: "Termo de acero inoxidable con sensor de temperatura LED en la tapa.",
     descripcionLarga: "Conserva bebidas calientes o frías hasta por 12 horas. Pantalla táctil impermeable que muestra la temperatura exacta en tiempo real."
@@ -319,10 +300,9 @@ const PRODUCTOS = [
     nombre: "Termodiseños",
     categoria: "Vasos y Termos",
     precio: 99.00,
-    precioAnterior: 129.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?auto=format&fit=crop&w=800&q=80"
+      "media/image29.png"
     ],
     descripcionCorta: "Termo portátil con estampados decorativos y tapa hermética.",
     descripcionLarga: "Estilo ligero y divertido con variedad de patrones modernos. Cierre hermético antiderrame ideal para oficina, escuela o gimnasio."
@@ -332,10 +312,9 @@ const PRODUCTOS = [
     nombre: "Vasos Diseño",
     categoria: "Vasos y Termos",
     precio: 119.00,
-    precioAnterior: 145.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80"
+      "media/image30.png"
     ],
     descripcionCorta: "Vaso térmico con popote y tapa antiderrame con diseños creativos.",
     descripcionLarga: "Capacidad de 500ml libre de BPA con doble pared aislante para evitar condensación exterior en bebidas frías."
@@ -347,10 +326,9 @@ const PRODUCTOS = [
     nombre: "Mochila Dulcera",
     categoria: "Bolsas y Mochilas",
     precio: 79.00,
-    precioAnterior: 99.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
+      "media/image31.png"
     ],
     descripcionCorta: "Mochila ligera tipo saco con jareta para dulces, eventos o paseos.",
     descripcionLarga: "Práctica mochila de tela lavable con cordones resistentes. Excelente para fiestas infantiles, dulceros o uso escolar ligero."
@@ -360,10 +338,9 @@ const PRODUCTOS = [
     nombre: "Bolsa c/Cierre",
     categoria: "Bolsas y Mochilas",
     precio: 59.00,
-    precioAnterior: 75.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
+      "media/image32.png"
     ],
     descripcionCorta: "Bolsa multiusos con cremallera reforzada y asas largas.",
     descripcionLarga: "Segura y espaciosa para transportar objetos personales. Cierre superior completo que resguarda tus pertenencias."
@@ -373,10 +350,9 @@ const PRODUCTOS = [
     nombre: "Bolsa Eco",
     categoria: "Bolsas y Mochilas",
     precio: 59.00,
-    precioAnterior: 75.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1597484661643-2f5fef640dd1?auto=format&fit=crop&w=800&q=80"
+      "media/image33.png"
     ],
     descripcionCorta: "Bolsa ecológica de tela biodegradable de gran resistencia.",
     descripcionLarga: "Alternativa sustentable a las bolsas de plástico tradicionales. Soporta hasta 15 kg de carga y es 100% lavable."
@@ -386,10 +362,9 @@ const PRODUCTOS = [
     nombre: "Bolsa Reutilizable",
     categoria: "Bolsas y Mochilas",
     precio: 39.00,
-    precioAnterior: 49.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?auto=format&fit=crop&w=800&q=80"
+      "media/image34.png"
     ],
     descripcionCorta: "Bolsa compacta plegable para compras cotidianas de mandado.",
     descripcionLarga: "Se pliega en un bolsillo pequeño para llevar en cualquier lugar. Tejido de polipropileno ligero y fácil de limpiar."
@@ -399,10 +374,9 @@ const PRODUCTOS = [
     nombre: "Bolsa Reco Animales",
     categoria: "Bolsas y Mochilas",
     precio: 45.00,
-    precioAnterior: 59.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80"
+      "media/image35.png"
     ],
     descripcionCorta: "Bolsa de compras con estampados divertidos de animales.",
     descripcionLarga: "Diseño tierno y alegre con costuras perimetrales reforzadas. Asas anchas que no lastiman las manos al cargar peso."
@@ -412,10 +386,9 @@ const PRODUCTOS = [
     nombre: "Bolsa Flores",
     categoria: "Bolsas y Mochilas",
     precio: 49.00,
-    precioAnterior: 65.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
+      "media/image36.png"
     ],
     descripcionCorta: "Bolsa tote bag con estampado floral elegante.",
     descripcionLarga: "Estilo fresco y femenino para salidas casuales o compras del día a día. Estampado de alta definición resistente al lavado."
@@ -427,10 +400,9 @@ const PRODUCTOS = [
     nombre: "Trapo Microfibra",
     categoria: "Trapos y Toallas",
     precio: 69.00,
-    precioAnterior: 85.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80"
+      "media/image37.png"
     ],
     descripcionCorta: "Trapo de microfibra de alta densidad para limpieza sin rayas.",
     descripcionLarga: "Atrapa polvo, grasa y líquidos sin dejar pelusas. Apto para pantallas, cristales, autos y superficies delicadas."
@@ -440,23 +412,21 @@ const PRODUCTOS = [
     nombre: "Jgo Trapitos 12 Pzas",
     categoria: "Trapos y Toallas",
     precio: 30.00,
-    precioAnterior: 40.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1584634731339-252c581abfc5?auto=format&fit=crop&w=800&q=80"
+      "media/image38.png"
     ],
     descripcionCorta: "Paquete económico con 12 paños de limpieza multiusos.",
     descripcionLarga: "Excelente absorbencia y rápido secado para uso continuo en cocina y labores del hogar."
   },
   {
     id: 33,
-    nombre: "Trapitos Frutas",
+    nombre: " JuegoTrapitos 12 Pzas con diseño de frutas",
     categoria: "Trapos y Toallas",
     precio: 25.00,
-    precioAnterior: 35.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image39.png"
     ],
     descripcionCorta: "Paños de cocina decorados con figuras frutales.",
     descripcionLarga: "Aportan color a tu cocina a la vez que garantizan secado eficaz de vajillas y manos."
@@ -466,10 +436,9 @@ const PRODUCTOS = [
     nombre: "Trapito de Manos 4 Pzas",
     categoria: "Trapos y Toallas",
     precio: 60.00,
-    precioAnterior: 75.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image40.png"
     ],
     descripcionCorta: "Set de 4 toallitas absorbentes para manos con ojal para colgar.",
     descripcionLarga: "Algodón suave de secado rápido con cordel integrado para colocar en ganchos de baño o cocina."
@@ -479,10 +448,9 @@ const PRODUCTOS = [
     nombre: "Toalla de Mano 5 Pzas",
     categoria: "Trapos y Toallas",
     precio: 75.00,
-    precioAnterior: 95.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image41.png"
     ],
     descripcionCorta: "Paquete con 5 toallas de mano afelpadas de tamaño estándar.",
     descripcionLarga: "Tejido rizado 100% algodón que absorbe rápidamente la humedad con textura esponjosa y agradable."
@@ -492,10 +460,9 @@ const PRODUCTOS = [
     nombre: "Trapitos Animales 12 Pzas",
     categoria: "Trapos y Toallas",
     precio: 65.00,
-    precioAnterior: 80.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1584634731339-252c581abfc5?auto=format&fit=crop&w=800&q=80"
+      "media/image42.png"
     ],
     descripcionCorta: "Set de 12 paños decorados con tiernos diseños de animalitos.",
     descripcionLarga: "Ideal para la rutina de limpieza diaria o para la lonchera y manos de los niños."
@@ -505,10 +472,9 @@ const PRODUCTOS = [
     nombre: "Toalla Zigzag",
     categoria: "Trapos y Toallas",
     precio: 48.00,
-    precioAnterior: 60.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80"
+      "media/image43.png"
     ],
     descripcionCorta: "Toalla con patrón geométrico en zigzag moderno.",
     descripcionLarga: "Diseño estético con cenefa tejida que complementa la decoración de cualquier baño de visitas."
@@ -518,10 +484,9 @@ const PRODUCTOS = [
     nombre: "Trapitos de Mano Flores",
     categoria: "Trapos y Toallas",
     precio: 35.00,
-    precioAnterior: 45.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image44.png"
     ],
     descripcionCorta: "Paños de mano con delicados bordados florales.",
     descripcionLarga: "Textura suave para manos y rostro, confeccionados con materiales duraderos que no pierden suavidad."
@@ -531,10 +496,9 @@ const PRODUCTOS = [
     nombre: "Bata de Baño",
     categoria: "Trapos y Toallas",
     precio: 89.00,
-    precioAnterior: 119.00,
     destacado: true,
     imagenes: [
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80"
+      "media/image45.png"
     ],
     descripcionCorta: "Bata de baño absorbente unisex con cinturón ajustable.",
     descripcionLarga: "Sal de la ducha con total confort. Tejido afelpado de alto gramaje con bolsillos frontales y ajuste ceñido."
@@ -544,10 +508,9 @@ const PRODUCTOS = [
     nombre: "Toalla Monarca",
     categoria: "Trapos y Toallas",
     precio: 89.00,
-    precioAnterior: 110.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80"
+      "media/image46.png"
     ],
     descripcionCorta: "Toalla decorativa con motivos inspirados en mariposas monarca.",
     descripcionLarga: "Colores vivos y excelente capacidad de absorción para baño o alberca. Suavidad prolongada tras múltiples lavadas."
@@ -557,10 +520,9 @@ const PRODUCTOS = [
     nombre: "Toalla Colores (2 Pzas)",
     categoria: "Trapos y Toallas",
     precio: 109.00,
-    precioAnterior: 139.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80"
+      "media/image47.png"
     ],
     descripcionCorta: "Dúo de toallas medianas en tonos alegres combinados.",
     descripcionLarga: "Incluye dos toallas de cuerpo medio con tacto esponjoso y secado rápido para la rutina de toda la familia."
@@ -570,10 +532,9 @@ const PRODUCTOS = [
     nombre: "Toalla de Baño",
     categoria: "Trapos y Toallas",
     precio: 87.00,
-    precioAnterior: 110.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image48.png"
     ],
     descripcionCorta: "Toalla de baño de cuerpo completo 100% algodón.",
     descripcionLarga: "Dimensiones generosas para envolverse cómodamente al salir de la ducha. Excelente resistencia y absorción."
@@ -583,10 +544,9 @@ const PRODUCTOS = [
     nombre: "Toalla Estándar",
     categoria: "Trapos y Toallas",
     precio: 105.00,
-    precioAnterior: 130.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80"
+      "media/image49.png"
     ],
     descripcionCorta: "Toalla premium de algodón peinado con cenefa decorativa.",
     descripcionLarga: "Calidad hotelera de secado envolvente. Conserva su textura esponjosa y brillo después de continuas lavadas."
@@ -596,10 +556,9 @@ const PRODUCTOS = [
     nombre: "Toalla Medio Baño (2 Pzas)",
     categoria: "Trapos y Toallas",
     precio: 99.00,
-    precioAnterior: 125.00,
     destacado: false,
     imagenes: [
-      "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80"
+      "media/image50.png"
     ],
     descripcionCorta: "Juego de 2 toallas de medio baño prácticas y absorbentes.",
     descripcionLarga: "Tamaño práctico ideal para secado de cabello, manos o para llevar al gimnasio o viajes cortos."
