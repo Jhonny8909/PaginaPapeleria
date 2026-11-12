@@ -46,7 +46,7 @@ const PRODUCTOS = [
     precio: 189.00,
     destacado: true,
     imagenes: [
-      "media/imagen0.jpeg"
+      "media/imagen0.png"
     ],
     descripcionCorta: "Conjunto urbano estilo Brooklyn de dos piezas.",
     descripcionLarga: "Diseño moderno y relajado de estilo urbano. Incluye sudadera/playera y pantalón a juego con excelente corte y acabado."
