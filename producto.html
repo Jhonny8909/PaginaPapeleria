@@ -203,36 +203,9 @@
           <span id="ticket-total-valor">$0.00</span>
         </div>
 
-        <!-- Formulario para recibir el pedido y conectarlo a n8n y WhatsApp -->
-        <div class="ticket-formulario-cliente" id="ticket-formulario-cliente">
-          <div style="font-size: 0.88rem; font-weight: 600; margin: 14px 0 10px; color: var(--color-texto);">
-            📝 Ingresa tus datos para recibir tu confirmación por WhatsApp:
-          </div>
-
-          <div style="margin-bottom: 8px;">
-            <input type="text" id="cliente-nombre" placeholder="Nombre completo" class="input-ticket" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-borde); border-radius: 8px; font-size: 0.9rem; background: var(--color-fondo-tarjeta); color: var(--color-texto); box-sizing: border-box;">
-          </div>
-
-          <div style="margin-bottom: 8px;">
-            <div style="display: flex; gap: 6px;">
-              <span style="display: flex; align-items: center; padding: 0 10px; background: var(--color-fondo-suave); border: 1px solid var(--color-borde); border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--color-texto);">🇲🇽 +52</span>
-              <input type="tel" id="cliente-whatsapp" placeholder="WhatsApp (10 dígitos)" maxlength="10" class="input-ticket" required style="flex: 1; width: 100%; padding: 9px 12px; border: 1px solid var(--color-borde); border-radius: 8px; font-size: 0.9rem; background: var(--color-fondo-tarjeta); color: var(--color-texto); box-sizing: border-box;">
-            </div>
-          </div>
-
-          <div style="margin-bottom: 12px;">
-            <input type="text" id="cliente-notas" placeholder="Dirección de entrega o notas (opcional)" class="input-ticket" style="width: 100%; padding: 9px 12px; border: 1px solid var(--color-borde); border-radius: 8px; font-size: 0.85rem; background: var(--color-fondo-tarjeta); color: var(--color-texto); box-sizing: border-box;">
-          </div>
-        </div>
-
-        <div id="ticket-mensaje-estado" style="display: none; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.85rem; text-align: center; line-height: 1.4;"></div>
-
         <div class="ticket-acciones" id="ticket-acciones-container">
-          <button class="btn btn-whatsapp btn-bloque" id="btn-confirmar-pedido-n8n" style="display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600;">
-            <span>📲 Confirmar y Enviar Pedido</span>
-          </button>
-          <a id="btn-enviar-whatsapp" class="btn btn-secundario btn-bloque" href="#" target="_blank" rel="noopener noreferrer">
-            Abrir WhatsApp con el pedido
+          <a id="btn-enviar-whatsapp" class="btn btn-whatsapp btn-bloque" href="#" target="_blank" rel="noopener noreferrer">
+            Enviar pedido por WhatsApp
           </a>
           <button class="btn btn-secundario btn-bloque" id="btn-cerrar-ticket" style="margin-top: 6px;">
             Seguir comprando
@@ -270,7 +243,7 @@
       </div>
       <div class="footer-col">
         <h4>Contacto Rápido</h4>
-        <p style="margin-bottom: 8px;">WhatsApp: 5550698604</p>
+        <p style="margin-bottom: 8px;">WhatsApp: +52 56 2426 3110</p>
         <p style="margin-bottom: 8px;">Correo: consorciomonzaprime@infinitummail.com</p>
       </div>
     </div>
