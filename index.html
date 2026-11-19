@@ -161,7 +161,7 @@
       </div>
       <div class="drawer-acciones">
         <button class="btn btn-whatsapp btn-bloque" id="btn-drawer-checkout">
-          Simular Compra y Mandar Ticket
+          Preparar pedido por WhatsApp
         </button>
         <a href="carrito.html" class="btn btn-secundario btn-bloque">
           Ver Carrito Completo
@@ -177,8 +177,8 @@
     <div class="ticket-card">
       <div class="ticket-header">
         <div class="ticket-header-icono">✓</div>
-        <h3>¡Ticket Generado con Éxito!</h3>
-        <p>Tu orden ha sido registrada para envío a WhatsApp</p>
+        <h3>Tu pedido está listo</h3>
+        <p>Revisa el resumen y abre WhatsApp para enviar tu pedido.</p>
       </div>
 
       <div class="ticket-cuerpo">
@@ -201,13 +201,16 @@
         <div class="ticket-alerta-info">
           <span>📱</span>
           <div>
-            <strong>Simulación de Compra:</strong> En esta plantilla se crea el ticket y se simula la apertura del chat de WhatsApp con la empresa para formalizar el pedido.
+            WhatsApp abrirá con el mensaje preparado. Confirma el envío desde la aplicación para completar tu pedido.
           </div>
         </div>
 
         <div class="ticket-acciones">
+          <a id="btn-enviar-whatsapp" class="btn btn-whatsapp btn-bloque" href="#" target="_blank" rel="noopener noreferrer">
+            Enviar pedido por WhatsApp
+          </a>
           <button class="btn btn-primario btn-bloque" id="btn-cerrar-ticket">
-            Aceptar y Continuar
+            Cerrar
           </button>
           <a href="tienda.html" class="btn btn-secundario btn-bloque" onclick="cerrarTicketModal(true)">
             Explorar más productos

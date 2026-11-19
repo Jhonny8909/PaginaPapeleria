@@ -6,6 +6,7 @@
 // 1. GESTIÓN DEL CARRITO (LOCALSTORAGE)
 // ------------------------------------------------------------
 const STORAGE_KEY_CARRITO = "tienda_carrito_compras";
+const NUMERO_WHATSAPP = "525624263110";
 
 function obtenerCarrito() {
   try {
@@ -832,7 +833,7 @@ function inicializarDetalleProducto() {
     });
   }
 
-  // Botón "Simular Compra con Ticket WhatsApp"
+  // Preparar el pedido del producto para enviarlo por WhatsApp
   const btnComprarAhora = document.getElementById("btn-detalle-comprar");
   if (btnComprarAhora) {
     btnComprarAhora.addEventListener("click", () => {
@@ -921,10 +922,10 @@ function renderizarPaginaCarrito() {
         <span>${formatearMoneda(totalPrecio)}</span>
       </div>
       <p style="font-size: 0.85rem; color: var(--color-texto-secundario); margin: 16px 0;">
-        Al continuar, se generará el ticket de tu orden y se simulará el envío del chat a WhatsApp.
+        Al continuar, se preparará el pedido y podrás abrir WhatsApp para confirmar el envío.
       </p>
       <button class="btn btn-whatsapp btn-bloque" onclick="simularCompraDesdeCarrito()">
-        Simular Compra y Mandar Ticket
+        Preparar pedido por WhatsApp
       </button>
     </div>
   `;
@@ -957,10 +958,26 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
   const ticketFechaEl = document.getElementById("ticket-fecha");
   const ticketListaEl = document.getElementById("ticket-articulos-lista");
   const ticketTotalEl = document.getElementById("ticket-total-valor");
+  const enlaceWhatsApp = document.getElementById("btn-enviar-whatsapp");
 
   if (ticketNumeroEl) ticketNumeroEl.textContent = `#${ticketId}`;
   if (ticketFechaEl) ticketFechaEl.textContent = fecha;
   if (ticketTotalEl) ticketTotalEl.textContent = formatearMoneda(total);
+
+  if (enlaceWhatsApp) {
+    const detalle = articulos.map(item =>
+      `- ${item.nombre} x${item.cantidad}: ${formatearMoneda(item.precio * item.cantidad)}`
+    );
+    const mensaje = [
+      "Hola, quiero realizar el siguiente pedido:",
+      ...detalle,
+      "",
+      `Ticket: #${ticketId}`,
+      `Total: ${formatearMoneda(total)}`
+    ].join("\n");
+
+    enlaceWhatsApp.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+  }
 
   if (ticketListaEl) {
     ticketListaEl.innerHTML = articulos.map(item => `
