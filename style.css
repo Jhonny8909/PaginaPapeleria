@@ -1443,8 +1443,16 @@ a {
   }
 
   .detalle-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 24px;
+  }
+
+  .galeria-contenedor {
+    min-width: 0;
+  }
+
+  .miniaturas-row {
+    flex-wrap: wrap;
   }
 
   .carrito-grid-layout {
