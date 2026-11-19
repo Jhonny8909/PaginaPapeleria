@@ -43,15 +43,15 @@ El repositorio ya incluye el flujo automatizado en `.github/workflows/deploy.yml
   - Carga dinamica del producto por ID (`?id=X`).
   - Galeria con visor de imagen principal y miniaturas interactivas para cambiar de toma.
   - Descripcion, selector de cantidad, precio y precio de descuento.
-  - **Boton "Comprar ahora por WhatsApp"**: prepara el pedido y muestra un resumen con un enlace `wa.me` para abrir WhatsApp con el mensaje listo. El cliente debe confirmar el envio en WhatsApp.
+  - **Boton "Comprar ahora por WhatsApp"**: prepara el pedido y permite enviarlo desde WhatsApp con el mensaje listo, o registrarlo por el webhook de n8n.
   - Boton para agregar al carrito.
 - **`carrito.html`**: Pagina completa de revision del carrito:
   - Tabla de productos agregados, ajuste de cantidades, eliminacion y resumen de totales.
-  - Boton para preparar el pedido completo y abrir WhatsApp con los productos, cantidades, total e identificador del ticket.
+  - Formulario para capturar nombre, WhatsApp y notas opcionales, con opcion de registrar el pedido por n8n o abrir WhatsApp con los productos, cantidades, total e identificador del ticket.
 - **`productos.js`**: Base de datos centralizada y modular en JavaScript. Permite modificar facilmente los productos, categorias, imagenes, precios y descripciones para cualquier tipo de negocio.
 - **`style.css`**: Hoja de estilos con variables CSS, tipografias modernas (*Anton* y *Space Grotesk*), drawer lateral offcanvas, pop-up de ticket y diseno 100% responsivo para movil, tablet y escritorio.
 - **`script.js`**: Logica de interaccion (carrusel con autoplay, buscador expandible, filtrado en tiempo real, persistencia del carrito con `localStorage`, drawer lateral y generador de tickets).
-- **WhatsApp**: El enlace usa el numero `525550698604` (Mexico). Actualiza `NUMERO_WHATSAPP` en `script.js` si cambia el numero de contacto; debe incluir el codigo de pais y solo digitos.
+- **WhatsApp y n8n**: Actualiza `NUMERO_WHATSAPP` y `CONFIG_AUTOMATIZACION` en `script.js` si cambian el telefono de contacto o el webhook. El enlace `wa.me` abre un mensaje que el cliente debe enviar; el webhook debe configurarse y protegerse en n8n. No guardes tokens ni credenciales en el JavaScript publico.
 - **`.nojekyll`**: Archivo que desactiva el procesamiento de Jekyll en GitHub Pages para servir los archivos HTML, CSS y JS planos sin demoras ni omisiones.
 
 ---

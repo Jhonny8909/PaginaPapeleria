@@ -1,3 +1,18 @@
+const NUMERO_WHATSAPP = "525624263110";
+
+// ============================================================
+// CONFIGURACIÓN DE AUTOMATIZACIÓN (N8N & WHATSAPP CLOUD API)
+// ============================================================
+const CONFIG_AUTOMATIZACION = {
+  // Webhook activo en tu instancia de n8n
+  webhookUrl: "https://jonathan8909.app.n8n.cloud/webhook/nuevo-pedido",
+  // Teléfono de respaldo de la tienda (código de país + número)
+  telefonoTienda: NUMERO_WHATSAPP,
+  activarWebhookN8N: true
+};
+
+let datosOrdenActual = null;
+
 // ============================================================
 // SCRIPT PRINCIPAL - E-COMMERCE CON TICKET DE WHATSAPP
 // ============================================================
@@ -6,7 +21,6 @@
 // 1. GESTIÓN DEL CARRITO (LOCALSTORAGE)
 // ------------------------------------------------------------
 const STORAGE_KEY_CARRITO = "tienda_carrito_compras";
-const NUMERO_WHATSAPP = "525624263110";
 
 function obtenerCarrito() {
   try {
@@ -946,7 +960,7 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
 
   const total = articulos.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
   const ticketId = "TK-" + Math.floor(100000 + Math.random() * 900000);
-  const fecha = new Date().toLocaleDateString("es-ES", {
+  const fecha = new Date().toLocaleDateString("es-MX", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -958,26 +972,10 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
   const ticketFechaEl = document.getElementById("ticket-fecha");
   const ticketListaEl = document.getElementById("ticket-articulos-lista");
   const ticketTotalEl = document.getElementById("ticket-total-valor");
-  const enlaceWhatsApp = document.getElementById("btn-enviar-whatsapp");
 
   if (ticketNumeroEl) ticketNumeroEl.textContent = `#${ticketId}`;
   if (ticketFechaEl) ticketFechaEl.textContent = fecha;
   if (ticketTotalEl) ticketTotalEl.textContent = formatearMoneda(total);
-
-  if (enlaceWhatsApp) {
-    const detalle = articulos.map(item =>
-      `- ${item.nombre} x${item.cantidad}: ${formatearMoneda(item.precio * item.cantidad)}`
-    );
-    const mensaje = [
-      "Hola, quiero realizar el siguiente pedido:",
-      ...detalle,
-      "",
-      `Ticket: #${ticketId}`,
-      `Total: ${formatearMoneda(total)}`
-    ].join("\n");
-
-    enlaceWhatsApp.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-  }
 
   if (ticketListaEl) {
     ticketListaEl.innerHTML = articulos.map(item => `
@@ -988,11 +986,165 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
     `).join("");
   }
 
+  // Guardar orden activa para el envío al Webhook de n8n
+  datosOrdenActual = {
+    ticketId: ticketId,
+    fecha: fecha,
+    articulos: articulos.map(item => ({
+      id: item.id,
+      nombre: item.nombre,
+      precio: item.precio,
+      cantidad: item.cantidad,
+      subtotal: item.precio * item.cantidad
+    })),
+    total: total,
+    vaciarAlCerrar: vaciarAlCerrar
+  };
+
+  // Resetear campos del formulario en el modal
+  const nombreInput = document.getElementById("cliente-nombre");
+  const whatsappInput = document.getElementById("cliente-whatsapp");
+  const notasInput = document.getElementById("cliente-notas");
+  const estadoMsg = document.getElementById("ticket-mensaje-estado");
+  const btnConfirmar = document.getElementById("btn-confirmar-pedido-n8n");
+  const formCliente = document.getElementById("ticket-formulario-cliente");
+
+  if (nombreInput) nombreInput.value = "";
+  if (whatsappInput) whatsappInput.value = "";
+  if (notasInput) notasInput.value = "";
+  if (estadoMsg) {
+    estadoMsg.style.display = "none";
+    estadoMsg.innerHTML = "";
+  }
+  if (formCliente) formCliente.style.display = "block";
+  if (btnConfirmar) {
+    btnConfirmar.disabled = false;
+    btnConfirmar.innerHTML = "<span>📲 Confirmar y Enviar Pedido</span>";
+    btnConfirmar.style.display = "flex";
+  }
+  actualizarEnlaceWhatsAppPedido();
+
   // Guardar estado si se debe vaciar carrito al cerrar
   modal.setAttribute("data-vaciar-al-cerrar", vaciarAlCerrar ? "true" : "false");
 
   modal.classList.add("activo");
   document.body.style.overflow = "hidden";
+}
+
+function actualizarEnlaceWhatsAppPedido() {
+  const enlaceWhatsApp = document.getElementById("btn-enviar-whatsapp");
+  if (!enlaceWhatsApp || !datosOrdenActual) return;
+
+  const nombreInput = document.getElementById("cliente-nombre");
+  const whatsappInput = document.getElementById("cliente-whatsapp");
+  const notasInput = document.getElementById("cliente-notas");
+  const nombre = nombreInput ? nombreInput.value.trim() : "";
+  const whatsapp = whatsappInput ? whatsappInput.value.trim() : "";
+  const notas = notasInput ? notasInput.value.trim() : "";
+  const detalle = datosOrdenActual.articulos.map(item =>
+    `- ${item.nombre} x${item.cantidad}: ${formatearMoneda(item.subtotal)}`
+  );
+  const mensaje = [
+    "Hola, quiero realizar el siguiente pedido:",
+    `Ticket: #${datosOrdenActual.ticketId}`,
+    nombre ? `Nombre: ${nombre}` : "",
+    whatsapp ? `Mi WhatsApp: ${whatsapp}` : "",
+    "",
+    ...detalle,
+    "",
+    `Total: ${formatearMoneda(datosOrdenActual.total)}`,
+    notas ? `Notas o dirección: ${notas}` : ""
+  ].filter(Boolean).join("\n");
+
+  enlaceWhatsApp.href = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+}
+
+async function procesarPedidoN8N() {
+  if (!datosOrdenActual) return;
+
+  const nombreInput = document.getElementById("cliente-nombre");
+  const whatsappInput = document.getElementById("cliente-whatsapp");
+  const notasInput = document.getElementById("cliente-notas");
+  const estadoMsg = document.getElementById("ticket-mensaje-estado");
+  const btnConfirmar = document.getElementById("btn-confirmar-pedido-n8n");
+  const formCliente = document.getElementById("ticket-formulario-cliente");
+
+  const nombre = nombreInput ? nombreInput.value.trim() : "";
+  const whatsappRaw = whatsappInput ? whatsappInput.value.trim().replace(/\D/g, "") : "";
+  const notas = notasInput ? notasInput.value.trim() : "";
+
+  if (!nombre) {
+    alert("Por favor ingresa tu nombre completo.");
+    if (nombreInput) nombreInput.focus();
+    return;
+  }
+
+  if (whatsappRaw.length !== 10) {
+    alert("Por favor ingresa un número de WhatsApp válido (10 dígitos).");
+    if (whatsappInput) whatsappInput.focus();
+    return;
+  }
+
+  const whatsappFinal = `52${whatsappRaw}`;
+
+  const payload = {
+    ticketId: datosOrdenActual.ticketId,
+    fecha: datosOrdenActual.fecha,
+    cliente: {
+      nombre: nombre,
+      whatsapp: whatsappFinal,
+      notas: notas || "Sin notas adicionales"
+    },
+    articulos: datosOrdenActual.articulos,
+    total: datosOrdenActual.total
+  };
+
+  // Estado de carga en el botón
+  if (btnConfirmar) {
+    btnConfirmar.disabled = true;
+    btnConfirmar.innerHTML = "<span>⏳ Procesando y enviando a WhatsApp...</span>";
+  }
+
+  try {
+    if (!CONFIG_AUTOMATIZACION.activarWebhookN8N) {
+      throw new Error("El envío del pedido está desactivado.");
+    }
+
+    const respuesta = await fetch(CONFIG_AUTOMATIZACION.webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (!respuesta.ok) {
+      throw new Error(`El webhook respondió con estado ${respuesta.status}.`);
+    }
+
+    if (datosOrdenActual.vaciarAlCerrar) vaciarCarrito();
+    if (formCliente) formCliente.style.display = "none";
+    if (estadoMsg) {
+      estadoMsg.style.display = "block";
+      estadoMsg.style.backgroundColor = "rgba(37, 211, 102, 0.12)";
+      estadoMsg.style.border = "1px solid var(--color-whatsapp)";
+      estadoMsg.style.color = "var(--color-texto)";
+      estadoMsg.textContent = "Pedido registrado. Si necesitas enviar el mensaje manualmente, usa el botón de WhatsApp.";
+    }
+    if (btnConfirmar) {
+      btnConfirmar.innerHTML = "<span>Pedido registrado</span>";
+    }
+  } catch (error) {
+    console.error("No se pudo registrar el pedido en n8n:", error);
+    if (estadoMsg) {
+      estadoMsg.style.display = "block";
+      estadoMsg.style.backgroundColor = "rgba(220, 53, 69, 0.1)";
+      estadoMsg.style.border = "1px solid #dc3545";
+      estadoMsg.style.color = "var(--color-texto)";
+      estadoMsg.textContent = "No se pudo registrar el pedido. Inténtalo de nuevo o envíalo directamente por WhatsApp.";
+    }
+    if (btnConfirmar) {
+      btnConfirmar.disabled = false;
+      btnConfirmar.innerHTML = "<span>📲 Reintentar envío</span>";
+    }
+  }
 }
 
 function cerrarTicketModal(conservarCarrito = false) {
@@ -1033,11 +1185,21 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Configurar cierre del modal de ticket
+    // Botón para confirmar pedido y enviar a n8n y WhatsApp
+  const btnConfirmarN8N = document.getElementById("btn-confirmar-pedido-n8n");
+  if (btnConfirmarN8N) {
+    btnConfirmarN8N.addEventListener("click", procesarPedidoN8N);
+  }
+
   const btnCerrarTicket = document.getElementById("btn-cerrar-ticket");
   const modalOverlay = document.getElementById("ticket-modal-overlay");
   if (btnCerrarTicket) {
-    btnCerrarTicket.addEventListener("click", cerrarTicketModal);
+    btnCerrarTicket.addEventListener("click", () => cerrarTicketModal(true));
   }
+  ["cliente-nombre", "cliente-whatsapp", "cliente-notas"].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.addEventListener("input", actualizarEnlaceWhatsAppPedido);
+  });
   if (modalOverlay) {
     modalOverlay.addEventListener("click", (e) => {
       if (e.target === modalOverlay) {
