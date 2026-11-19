@@ -971,17 +971,17 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
   const ticketListaEl = document.getElementById("ticket-articulos-lista");
   const ticketTotalEl = document.getElementById("ticket-total-valor");
 
-  if (ticketNumeroEl) ticketNumeroEl.textContent = #;
+  if (ticketNumeroEl) ticketNumeroEl.textContent = '#' + ticketId;
   if (ticketFechaEl) ticketFechaEl.textContent = fecha;
   if (ticketTotalEl) ticketTotalEl.textContent = formatearMoneda(total);
 
   if (ticketListaEl) {
-    ticketListaEl.innerHTML = articulos.map(item => 
-      <div class="ticket-articulo-fila">
-        <span>x </span>
-        <span></span>
-      </div>
-    ).join("");
+    ticketListaEl.innerHTML = articulos.map(item => (
+      '<div class="ticket-articulo-fila">' +
+        '<span>' + item.cantidad + 'x ' + item.nombre + '</span>' +
+        '<span>' + formatearMoneda(item.precio * item.cantidad) + '</span>' +
+      '</div>'
+    )).join('');
   }
 
   // Guardar orden activa para el envío al Webhook de n8n
@@ -1026,6 +1026,18 @@ function mostrarTicketModal(articulos, vaciarAlCerrar = false) {
 
   modal.classList.add("activo");
   document.body.style.overflow = "hidden";
+}
+
+function cerrarTicketModal(conservarCarrito = false) {
+  const modal = document.getElementById("ticket-modal-overlay");
+  if (modal && modal.classList.contains("activo")) {
+    modal.classList.remove("activo");
+    document.body.style.overflow = "";
+
+    if (!conservarCarrito && modal.getAttribute("data-vaciar-al-cerrar") === "true") {
+      vaciarCarrito();
+    }
+  }
 }
 
 async function procesarPedidoN8N() {
@@ -1097,51 +1109,35 @@ async function procesarPedidoN8N() {
   if (btnConfirmar) btnConfirmar.style.display = "none";
 
   // Enlace directo de respaldo a WhatsApp
-  const listaTexto = datosOrdenActual.articulos.map(item => • x  ({item.subtotal.toFixed(2)})).join("\n");
+  const listaTexto = datosOrdenActual.articulos.map(item => '• ' + item.cantidad + 'x ' + item.nombre + ' ($' + item.subtotal.toFixed(2) + ')').join('\n');
   const mensajeRespaldo = encodeURIComponent(
-¡Hola! Acabo de registrar mi pedido 🛍️
-
-📋 *Ticket:* #
-👤 *Cliente:* 
-📅 *Fecha:* 
-
-🛒 *Productos:*
-
-
-💰 *Total a pagar:* {datosOrdenActual.total.toFixed(2)}
-📝 *Notas:* 
+    '¡Hola! Acabo de registrar mi pedido 🛍️\n\n' +
+    '📋 *Ticket:* #' + datosOrdenActual.ticketId + '\n' +
+    '👤 *Cliente:* ' + nombre + '\n' +
+    '📅 *Fecha:* ' + datosOrdenActual.fecha + '\n\n' +
+    '🛒 *Productos:*\n' +
+    listaTexto + '\n\n' +
+    '💰 *Total a pagar:* $' + datosOrdenActual.total.toFixed(2) + '\n' +
+    '📝 *Notas:* ' + (notas || 'Ninguna')
   );
 
-  const urlWhatsAppDirecto = https://wa.me/?text=;
+  const urlWhatsAppDirecto = 'https://wa.me/' + CONFIG_AUTOMATIZACION.telefonoTienda + '?text=' + mensajeRespaldo;
 
   if (estadoMsg) {
     estadoMsg.style.display = "block";
     estadoMsg.style.backgroundColor = "rgba(37, 211, 102, 0.12)";
     estadoMsg.style.border = "1px solid var(--color-whatsapp)";
     estadoMsg.style.color = "var(--color-texto)";
-    estadoMsg.innerHTML = 
-      <div style="font-size: 1.05rem; font-weight: bold; margin-bottom: 6px; color: var(--color-whatsapp-oscuro);">
-        ¡Pedido Registrado con Éxito! 🎉
-      </div>
-      <p style="margin: 4px 0 10px;">
-        En unos momentos recibirás tu ticket de confirmación en tu WhatsApp (<strong>+</strong>).
-      </p>
-      <a href="" target="_blank" class="btn btn-whatsapp btn-bloque" style="font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px;">
-        <span>💬 Abrir Chat de WhatsApp Directo</span>
-      </a>
-    ;
-  }
-}
-
-function cerrarTicketModal(conservarCarrito = false) {
-  const modal = document.getElementById("ticket-modal-overlay");
-  if (modal && modal.classList.contains("activo")) {
-    modal.classList.remove("activo");
-    document.body.style.overflow = "";
-
-    if (!conservarCarrito && modal.getAttribute("data-vaciar-al-cerrar") === "true") {
-      vaciarCarrito();
-    }
+    estadoMsg.innerHTML =
+      '<div style="font-size: 1.05rem; font-weight: bold; margin-bottom: 6px; color: var(--color-whatsapp-oscuro);">' +
+        '¡Pedido Registrado con Éxito! 🎉' +
+      '</div>' +
+      '<p style="margin: 4px 0 10px;">' +
+        'En unos momentos recibirás tu ticket de confirmación en tu WhatsApp (<strong>+' + whatsappFinal + '</strong>).' +
+      '</p>' +
+      '<a href="' + urlWhatsAppDirecto + '" target="_blank" class="btn btn-whatsapp btn-bloque" style="font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px;">' +
+        '<span>💬 Abrir Chat de WhatsApp Directo</span>' +
+      '</a>';
   }
 }
 
