@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirigiendo...</title>
+  <script>
+    (function () {
+      const rutas = {
+        producto: "producto.html",
+        carrito: "carrito.html",
+        tienda: "tienda.html"
+      };
+
+      const ruta = window.location.pathname.replace(/\/+$/, "");
+      const coincidencia = ruta.match(/\/([^/]+)$/);
+      if (!coincidencia) return;
+
+      const archivo = rutas[coincidencia[1].toLowerCase()];
+      if (!archivo) return;
+
+      const prefijo = ruta.slice(0, ruta.length - coincidencia[0].length);
+      const destino = `${window.location.origin}${prefijo}/${archivo}${window.location.search}${window.location.hash}`;
+      window.location.replace(destino);
+    })();
+  </script>
+</head>
+<body></body>
+</html>

@@ -111,7 +111,7 @@ function actualizarVistasCarrito() {
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
           </svg>
           <p>Tu carrito está vacío</p>
-          <a href="tienda.html" class="btn btn-sm btn-primario" style="margin-top: 14px;">Explorar Productos</a>
+          <a href="./tienda" class="btn btn-sm btn-primario" style="margin-top: 14px;">Explorar Productos</a>
         </div>
       `;
       if (drawerBtnComprar) drawerBtnComprar.disabled = true;
@@ -199,7 +199,7 @@ function inicializarHeader() {
     if (listaChips && typeof CATEGORIAS !== "undefined") {
       listaChips.innerHTML = CATEGORIAS.map(cat => {
         const icono = (typeof ICONOS_CATEGORIAS !== "undefined" && ICONOS_CATEGORIAS[cat]) ? `${ICONOS_CATEGORIAS[cat]} ` : "";
-        return `<a href="tienda.html?categoria=${encodeURIComponent(cat)}" class="categoria-chip">${icono}${cat}</a>`;
+        return `<a href="./tienda?categoria=${encodeURIComponent(cat)}" class="categoria-chip">${icono}${cat}</a>`;
       }).join("");
     }
 
@@ -228,9 +228,9 @@ function inicializarHeader() {
         e.preventDefault();
         const termino = buscadorInput.value.trim();
         if (termino) {
-          window.location.href = `tienda.html?buscar=${encodeURIComponent(termino)}`;
+          window.location.href = `./tienda?buscar=${encodeURIComponent(termino)}`;
         } else {
-          window.location.href = `tienda.html`;
+          window.location.href = `./tienda`;
         }
       });
     }
@@ -377,7 +377,7 @@ function inicializarCarrusel() {
     <article class="producto-card" data-product-id="${p.id}">
       <div class="producto-card-img-wrapper">
         <span class="badge-tag">Sugerido</span>
-        <a href="producto.html?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
+        <a href="./producto?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
           <img src="${p.imagenes[0]}" alt="${p.nombre} - imagen 1 de ${p.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
         </a>
         ${p.imagenes.length > 1 ? `
@@ -408,7 +408,7 @@ function inicializarCarrusel() {
           ${p.precioAnterior ? `<span class="precio-anterior">${formatearMoneda(p.precioAnterior)}</span>` : ""}
         </div>
         <div class="producto-card-acciones">
-          <a href="producto.html?id=${p.id}" class="btn btn-primario btn-sm btn-bloque">Ver Producto</a>
+          <a href="./producto?id=${p.id}" class="btn btn-primario btn-sm btn-bloque">Ver Producto</a>
           <button class="btn btn-secundario btn-sm" onclick="agregarAlCarrito(${p.id})" title="Añadir al carrito">
             🛒
           </button>
@@ -521,7 +521,7 @@ function inicializarCarruselOtrosProductos() {
   track.innerHTML = seleccionados.map(producto => `
     <article class="producto-card" data-product-id="${producto.id}">
       <div class="producto-card-img-wrapper">
-        <a href="producto.html?id=${producto.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${producto.nombre}">
+        <a href="./producto?id=${producto.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${producto.nombre}">
           <img src="${producto.imagenes[0]}" alt="${producto.nombre} - imagen 1 de ${producto.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
         </a>
         ${generarControlesImagenesProducto(producto)}
@@ -534,7 +534,7 @@ function inicializarCarruselOtrosProductos() {
           ${producto.precioAnterior ? `<span class="precio-anterior">${formatearMoneda(producto.precioAnterior)}</span>` : ""}
         </div>
         <div class="producto-card-acciones">
-          <a href="producto.html?id=${producto.id}" class="btn btn-primario btn-sm btn-bloque">Ver Producto</a>
+          <a href="./producto?id=${producto.id}" class="btn btn-primario btn-sm btn-bloque">Ver Producto</a>
           <button class="btn btn-secundario btn-sm" onclick="agregarAlCarrito(${producto.id})" title="Añadir al carrito">
             🛒
           </button>
@@ -707,7 +707,7 @@ function filtrarYMostrarCatalogo(termino, categoria) {
     contenedor.innerHTML = resultados.map(p => `
       <article class="producto-card" data-product-id="${p.id}">
         <div class="producto-card-img-wrapper">
-          <a href="producto.html?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
+          <a href="./producto?id=${p.id}" class="producto-card-imagen-enlace" aria-label="Ver detalles de ${p.nombre}">
             <img src="${p.imagenes[0]}" alt="${p.nombre} - imagen 1 de ${p.imagenes.length}" class="producto-card-img" data-image-index="0" loading="lazy">
           </a>
           ${generarControlesImagenesProducto(p)}
@@ -723,7 +723,7 @@ function filtrarYMostrarCatalogo(termino, categoria) {
             ${p.precioAnterior ? `<span class="precio-anterior">${formatearMoneda(p.precioAnterior)}</span>` : ""}
           </div>
           <div class="producto-card-acciones">
-            <a href="producto.html?id=${p.id}" class="btn btn-primario btn-sm btn-bloque">Detalles</a>
+            <a href="./producto?id=${p.id}" class="btn btn-primario btn-sm btn-bloque">Detalles</a>
             <button class="btn btn-secundario btn-sm" onclick="agregarAlCarrito(${p.id})" title="Añadir al carrito">
               🛒
             </button>
@@ -867,7 +867,7 @@ function renderizarPaginaCarrito() {
       <div class="sin-resultados" style="padding: 60px 20px;">
         <h3>Tu carrito está actualmente vacío</h3>
         <p>No tienes productos agregados para comprar.</p>
-        <a href="tienda.html" class="btn btn-primario">Ir a la Tienda</a>
+        <a href="./tienda" class="btn btn-primario">Ir a la Tienda</a>
       </div>
     `;
     resumenContainer.innerHTML = `
